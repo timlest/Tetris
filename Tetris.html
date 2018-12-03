@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <title> TETRIS </title>
+        <!-----Aquesta funcio crida al nostre js --->
+
+    </head>
+    <body>
+        <p>FUNCIONA?</p>
+
+        <script>
+            var Principal = {
+                espaiJoc: [
+                    espai[24] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[23] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[22] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[21] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[20] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[19] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[18] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[17] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[16] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[15] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[14] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[13] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[12] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[11] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[10] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[09] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[08] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[07] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[06] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[05] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[04] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[03] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[02] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[01] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    espai[00] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                ],               
+                puntuacio: 0,
+                
+                Maxpun= localStorage.getItem("Maxima")==undefined?0:localStorage.getItem("maxima"),
+                //localStorage.setItem("Maxima", punt);
+                // var maxi = localStorage.getItem("Maxima");
+                //document.getElementById("max").innerHTML = "<h3>La puntuacio Maxima obtinguda maxima es: " + maxi + "</h3>";
+                //segons el tipus de peça un num. o un altre
+                pSeguent:{},
+                contador: [0,0,0,0,0,0,0],
+                nivell: 0,
+                inicialitzarJoc: function () {
+
+                },
+                 Seguentpesa: function () {
+
+                },
+                teclat: function(){
+                    
+                },
+                movimentAutomatic: function(){
+                    
+                }
+
+            }
+
+        </script>
+
+        <noscript>
+        <p>HOLA</p>
+        <p>La página que estás viendo requiere para su funcionamiento el uso de JavaScript. 
+            Si lo has deshabilitado intencionadamente, por favor vuelve a activarlo.</p>
+        </noscript>
+    </body>
+</html>
