@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <title>ACTIVITAT 2B</title>
+        <!-----Aquesta funcio crida al nostre js --->
+
+    </head>
+    <body>
+        <p>FUNCIONA?</p>
+
+        <script>
+
+            var tetris = function () {
+                this.peças = new Array();
+                this.tauler = new Array();
+                this.x = 0;
+
+
+            };
+
+
+            var peça = function (color, px, py) {
+                // this.forma = new array();
+                this.color = color;
+                this.x = px;
+                this.y = py;
+
+            };
+            peça.prototype.moureD = function () {
+                if (this.x < 13) {
+                    this.x++;
+                    alert("ye");
+                    return true;
+                    
+                } else {
+                    return false;
+                }
+            };
+            peça.prototype.moureE = function () {
+                if (this.x > 1) {
+                    this.x--;
+                    alert("ye");
+                    return true;
+                    
+                } else {
+                    alert("EP HE MARXAT");
+                    return false;
+                    
+                }
+            };
+
+            var un = new peça("blau", 1, 10);
+
+            if (un.moureD()) {
+                alert("si");
+            } else {
+                alert("No");
+            }
+
+            if (un.moureE()) {
+                alert("si");
+            } else {
+                alert("No");
+            }
+        </script>
+
+        <noscript>
+        <p>HOLA</p>
+        <p>La página que estás viendo requiere para su funcionamiento el uso de JavaScript. 
+            Si lo has deshabilitado intencionadamente, por favor vuelve a activarlo.</p>
+        </noscript>
+    </body>
+</html>
