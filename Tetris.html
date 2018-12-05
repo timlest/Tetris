@@ -14,60 +14,176 @@ and open the template in the editor.
     </head>
     <body>
         <p>FUNCIONA?</p>
-
+        <div id="original">original</div>
+        <div id="girada">girada</div>
+        <div id="esquerra">esquetta</div>
         <script>
             var Principal = {
                 espaiJoc: [
-                    espai[24] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[23] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[22] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[21] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[20] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[19] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[18] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[17] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[16] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[15] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[14] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[13] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[12] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[11] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[10] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[09] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[08] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[07] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[06] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[05] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[04] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[03] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[02] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[01] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    espai[00] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                ],               
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                ],
                 puntuacio: 0,
-                
-                Maxpun= localStorage.getItem("Maxima")==undefined?0:localStorage.getItem("maxima"),
+
+                Maxpun: localStorage.getItem("Maxima") == undefined ? 0 : localStorage.getItem("Maxima"),
                 //localStorage.setItem("Maxima", punt);
                 // var maxi = localStorage.getItem("Maxima");
                 //document.getElementById("max").innerHTML = "<h3>La puntuacio Maxima obtinguda maxima es: " + maxi + "</h3>";
                 //segons el tipus de peça un num. o un altre
-                pSeguent:{},
-                contador: [0,0,0,0,0,0,0],
+                pSeguent: {},
+
+                contador: [0, 0, 0, 0, 0, 0, 0],
                 nivell: 0,
                 inicialitzarJoc: function () {
 
                 },
-                 Seguentpesa: function () {
+                Seguentpeça: function () {
 
                 },
-                teclat: function(){
-                    
+                teclat: function () {
+
                 },
-                movimentAutomatic: function(){
-                    
+                movimentAutomatic: function () {
+
                 }
 
+            };
+
+
+            var Peça = function (forma, color, x, y)
+            {
+                this.forma = forma;
+                this.color = color;
+                this.x = x;
+                this.y = y;
+            };
+
+            Peça.prototype.moureEsquerra = function ()
+            {
+                if ((this.x - 1) > 0) {
+                    this.x--;
+                    
+                } else {
+                    return false;
+                }
+            };
+
+            Peça.prototype.moureDreta = function ()
+            {
+                if ((this.x + 1) < 14) {
+                    this.x++;
+                    return true;
+                } else {
+                    return false;
+                }
+            };
+
+            Peça.prototype.moureAvall = function ()
+            {
+  
+            };
+
+            Peça.prototype.pintar = function ()
+            {
+                var resultat = "<table border='2'>";
+                for (var i = 0; i < this.forma.length; i++)
+                {
+                    resultat = resultat + "<tr>";
+                    for (var j = 0; j < this.forma[i].length; j++)
+                    {
+                        resultat = resultat + "<td>";
+                        if (this.forma[i][j] == 1) {
+                            resultat = resultat + "X";
+                        } else {
+                            resultat = resultat + "";
+                        }
+                        ;
+                        resultat = resultat + "</td>";
+                    }
+                    resultat = resultat + "</tr>";
+                }
+                resultat = resultat + "</table>";
+                return resultat
+            };
+
+            Peça.prototype.rotarDreta = function () {
+                var formaNova = new Array();
+                for (var i = 0; i < this.forma.length; i++) {
+                    formaNova[i] = new Array();
+                    for (var j = 0; j < this.forma[i].length; j++) {
+                        formaNova[i][j] = this.forma[this.forma[i].length - 1 - j][i];
+                    }
+                }
+                this.forma = formaNova;
+            };
+            Peça.prototype.rotarEsquerra = function () {
+
+
+                this.rotarDreta();
+                this.rotarDreta();
+                this.rotarDreta();
+            };
+
+
+            function GeneraPecaAleatoria()
+            {
+                var peces = [
+                    [[[0, 0, 0, 0], [0, 1, 1, 0], [0, 1, 1, 0], [0, 0, 0, 0]], "groc"],
+                    [[[0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0]], "lila"],
+                    [[[0, 0, 0, 0], [0, 1, 1, 0], [1, 1, 0, 0], [0, 0, 0, 0]], "verd"],
+                    [[[0, 0, 0, 0], [0, 1, 1, 0], [0, 0, 1, 1], [0, 0, 0, 0]], "roig"],
+                    [[[0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 0, 0]], "blau"],
+                    [[[0, 1, 1, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0]], "taronga"],
+                    [[[0, 0, 0, 0], [1, 1, 1, 0], [0, 1, 0, 0], [0, 0, 0, 0]], "morat"]];
+                var numeroAleatori = Math.round(Math.random() * 6);
+                return peces[numeroAleatori];
             }
+            ;
+
+
+
+
+
+            //per generar peça aleatoria var pa = GeneraPecaAleatoria();
+            // per generar una nova peeça var p = new Peça(pa[0],pa[1],0,0);
+            //document.write(p.pintar());
+
+            var pa = GeneraPecaAleatoria();
+            var p = new Peça(pa[0], pa[1], 7, 0);
+            document.getElementById("original").innerHTML = p.pintar();
+            p.moureDreta();
+            document.getElementById("girada").innerHTML = p.pintar();
+
+            p.rotarDreta();
+
+            document.getElementById("girada").innerHTML = p.pintar();
+
+            p.rotarEsquerra();
+            document.getElementById("esquerra").innerHTML = p.pintar();
+
 
         </script>
 
