@@ -8,15 +8,17 @@ and open the template in the editor.
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="style.css">
         <title> TETRIS </title>
         <!-----Aquesta funcio crida al nostre js --->
 
     </head>
     <body>
-        <p>FUNCIONA?</p>
-        <div id="original">original</div>
-        <div id="girada">girada</div>
-        <div id="esquerra">esquetta</div>
+        <div style="text-align: center;">
+            <h1 style="color: blanchedalmond; border: 1px solid greenyellow;">TETRIS GAME</h1>
+
+            <div id="tauler"></div>
+        </div>
         <script>
             var Principal = {
                 espaiJoc: [
@@ -59,19 +61,45 @@ and open the template in the editor.
                 nivell: 0,
                 inicialitzarJoc: function () {
 
+                    var fila = "";
+                    for (var i = 0; i < this.espaiJoc.length; i++) {
+                        fila += "<br>";
+                        for (var c = 0; c < this.espaiJoc[i].length; c++) {
+                            if (this.espaiJoc[i][c] === 0) {
+                                fila += "0";
+                            } else if (this.espaiJoc[i][c] === 1) {
+                                fila += "P";
+                            }
+                        }
+                    }
+
+                    document.getElementById("tauler").innerHTML = fila;
+
                 },
+
                 Seguentpeça: function () {
+                    GeneraPecaAleatoria()
 
                 },
                 teclat: function () {
 
                 },
                 movimentAutomatic: function () {
+                    for (var i = this.espaiJoc.length-1; i > 0; i--) {
 
+                        for (var c = this.espaiJoc[i].length; c >= 0; c--) {
+                            if (this.espaiJoc[i][c] === 1) {
+                                this.espaiJoc[i + 1][c] = 1;
+                                this.espaiJoc[i][c] = 0;
+                            }
+                        }
+                    }
                 }
-
             };
 
+
+
+//------        AQUI TENIM LA PEÇA DECLARADA    -----/
 
             var Peça = function (forma, color, x, y)
             {
@@ -85,7 +113,7 @@ and open the template in the editor.
             {
                 if ((this.x - 1) > 0) {
                     this.x--;
-                    
+
                 } else {
                     return false;
                 }
@@ -103,30 +131,31 @@ and open the template in the editor.
 
             Peça.prototype.moureAvall = function ()
             {
-  
+
             };
 
             Peça.prototype.pintar = function ()
             {
-                var resultat = "<table border='2'>";
+                console.log(this.forma);
+
                 for (var i = 0; i < this.forma.length; i++)
                 {
-                    resultat = resultat + "<tr>";
+
                     for (var j = 0; j < this.forma[i].length; j++)
                     {
-                        resultat = resultat + "<td>";
-                        if (this.forma[i][j] == 1) {
-                            resultat = resultat + "X";
-                        } else {
-                            resultat = resultat + "";
+
+                        if (this.forma[i][j] === 1) {
+
+                            //per veure les posicions que tenen i sumem la posicio x de la peça amb la que ocupa a la seva array i la posem al mapa.
+                            console.log("posicio i=" + i + " posicio j=" + j);
+                            console.log("x+i:" + (this.x + i) + " y+j:" + (this.y + j));
+                            Principal.espaiJoc[(this.x + i)][(this.y + j)] = 1;
+                            Principal.inicialitzarJoc();
                         }
-                        ;
-                        resultat = resultat + "</td>";
+
                     }
-                    resultat = resultat + "</tr>";
+
                 }
-                resultat = resultat + "</table>";
-                return resultat
             };
 
             Peça.prototype.rotarDreta = function () {
@@ -172,17 +201,20 @@ and open the template in the editor.
             //document.write(p.pintar());
 
             var pa = GeneraPecaAleatoria();
-            var p = new Peça(pa[0], pa[1], 7, 0);
-            document.getElementById("original").innerHTML = p.pintar();
-            p.moureDreta();
-            document.getElementById("girada").innerHTML = p.pintar();
+            var p = new Peça(pa[0], pa[1], 0, 3);
+            p.pintar();
+            function joc() {
+                Principal.inicialitzarJoc();
+                Principal.movimentAutomatic();
 
-            p.rotarDreta();
+            }
+            ;
 
-            document.getElementById("girada").innerHTML = p.pintar();
+            var loop = setInterval(joc, 1000);
 
-            p.rotarEsquerra();
-            document.getElementById("esquerra").innerHTML = p.pintar();
+
+            //      p.rotarEsquerra();
+            //   document.getElementById("esquerra").innerHTML = p.pintar();
 
 
         </script>
