@@ -55,45 +55,61 @@ and open the template in the editor.
                 // var maxi = localStorage.getItem("Maxima");
                 //document.getElementById("max").innerHTML = "<h3>La puntuacio Maxima obtinguda maxima es: " + maxi + "</h3>";
                 //segons el tipus de peça un num. o un altre
-                pSeguent: {},
-
+                pecaJoc: {},
+                peçaSeguent: {},
                 contador: [0, 0, 0, 0, 0, 0, 0],
                 nivell: 0,
                 inicialitzarJoc: function () {
 
-                    var fila = "";
+                    var fila = "<table id='taul' border='1'>";
                     for (var i = 0; i < this.espaiJoc.length; i++) {
-                        fila += "<br>";
+                        fila += "<tr>";
                         for (var c = 0; c < this.espaiJoc[i].length; c++) {
+                            fila += "<td>";
                             if (this.espaiJoc[i][c] === 0) {
-                                fila += "0";
+                                fila += "&nbsp;</td>";
                             } else if (this.espaiJoc[i][c] === 1) {
-                                fila += "P";
+                                fila += "P</td>";
+                            } else if (this.espaiJoc[i][c] === 2) {
+                                fila += "X</td>";
                             }
                         }
+                        fila += "</tr>";
                     }
+                    fila += "</table>"
 
+                    var pa = GeneraPecaAleatoria();
+                    this.pecaJoc = new Peça(pa[0], pa[1], 0, 3);
+                    pa = GeneraPecaAleatoria();
+                    this.peçaSeguent = new Peça(pa[0], pa[1], 0, 3);
+                    this.pintar();
                     document.getElementById("tauler").innerHTML = fila;
 
                 },
+                pintar:{},
 
-                Seguentpeça: function () {
-                    GeneraPecaAleatoria()
-
-                },
                 teclat: function () {
 
                 },
                 movimentAutomatic: function () {
-                    for (var i = this.espaiJoc.length-1; i > 0; i--) {
+                    /*
+                     
+                     */
 
-                        for (var c = this.espaiJoc[i].length; c >= 0; c--) {
+                    p.moureAvall();
+                    for (var i = this.espaiJoc.length - 1; i >= 0; i--) {
+
+                        for (var c = this.espaiJoc[i].length - 1; c >= 0; c--) {
                             if (this.espaiJoc[i][c] === 1) {
                                 this.espaiJoc[i + 1][c] = 1;
                                 this.espaiJoc[i][c] = 0;
+
                             }
                         }
                     }
+                    p.pintar();
+
+
                 }
             };
 
@@ -131,12 +147,19 @@ and open the template in the editor.
 
             Peça.prototype.moureAvall = function ()
             {
+                if ((this.x + 1) >= 0) {
+                    this.x++;
+                    return true;
+                } else {
+                    return false;
+                }
+
 
             };
 
             Peça.prototype.pintar = function ()
             {
-                console.log(this.forma);
+
 
                 for (var i = 0; i < this.forma.length; i++)
                 {
@@ -147,8 +170,8 @@ and open the template in the editor.
                         if (this.forma[i][j] === 1) {
 
                             //per veure les posicions que tenen i sumem la posicio x de la peça amb la que ocupa a la seva array i la posem al mapa.
-                            console.log("posicio i=" + i + " posicio j=" + j);
-                            console.log("x+i:" + (this.x + i) + " y+j:" + (this.y + j));
+                            // console.log("posicio i=" + i + " posicio j=" + j);
+                            // console.log("x+i:" + (this.x + i) + " y+j:" + (this.y + j));
                             Principal.espaiJoc[(this.x + i)][(this.y + j)] = 1;
                             Principal.inicialitzarJoc();
                         }
@@ -200,12 +223,11 @@ and open the template in the editor.
             // per generar una nova peeça var p = new Peça(pa[0],pa[1],0,0);
             //document.write(p.pintar());
 
-            var pa = GeneraPecaAleatoria();
-            var p = new Peça(pa[0], pa[1], 0, 3);
-            p.pintar();
+            Principal.pecaJoc();
             function joc() {
                 Principal.inicialitzarJoc();
                 Principal.movimentAutomatic();
+
 
             }
             ;
