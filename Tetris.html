@@ -13,13 +13,29 @@ and open the template in the editor.
         <!-----Aquesta funcio crida al nostre js --->
 
     </head>
-    <body>
+    <body id="all">
         <div style="text-align: center;">
             <h1 style="color: blanchedalmond; border: 1px solid greenyellow;">TETRIS GAME</h1>
 
             <div id="tauler"></div>
         </div>
         <script>
+            var element = document.getElementById("all");
+                    element.addEventListener("keydown", teclas);
+
+                       function teclas(e) {
+                    if (e.code === "ArrowLeft") {
+                       Principal.pecaJoc.moureEsquerra();
+                    } else if (e.code === "ArrowRight") {
+                         Principal.pecaJoc.moureDreta();
+                    } else if (e.code === "ArrowUp") {
+                       Principal.pecaJoc.moureAmunt();
+                    } else if (e.code === "ArrowDown") {
+                      Principal.pecaJoc.moureAvall();
+                    }
+
+                }
+            
             var Principal = {
                 espaiJoc: [
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -78,6 +94,8 @@ and open the template in the editor.
                         }
                     }
                 },
+                
+                
                 inicialitzarJoc: function () {
 
 
@@ -86,6 +104,9 @@ and open the template in the editor.
                     this.pecaJoc = new Peça(pa[0], pa[1], 0, 3);
                     pa = GeneraPecaAleatoria();
                     this.peçaSeguent = new Peça(pa[0], pa[1], 0, 3);
+                    
+                   
+                   
                 },
                 pintarMapa: function () {
                     var fila = "<table id='taul' border='1'>";
@@ -160,19 +181,22 @@ and open the template in the editor.
                 this.color = color;
                 this.x = x;
                 this.y = y;
+                
+                  
+                    
             };
             Peça.prototype.moureEsquerra = function ()
             {
-                if ((this.x - 1) > 0) {
-                    this.x--;
+                if ((this.y - 1) > 0) {
+                    this.y--;
                 } else {
                     return false;
                 }
             };
             Peça.prototype.moureDreta = function ()
             {
-                if ((this.x + 1) < 14) {
-                    this.x++;
+                if ((this.y + 1) < 14) {
+                    this.y++;
                     return true;
                 } else {
                     return false;
