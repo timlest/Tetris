@@ -12,5 +12,37 @@ and open the template in the editor.
     
 }
 #taul{
-    background-color: greenyellow;
+    background-color: graytext;
+    border: 2px solid black;
+}
+
+#fle{
+    display: flex;
+        margin-left: 38%;
+
+}
+
+#columna {
+    flex-direction: column;
+    margin-left: 10%;
+    margin-top: 20%;
+}
+
+#actual {
+    margin-bottom: 80px;
+}
+
+
+
+#bloqueig{
+    background-color:black;
+}
+#puntua {
+    border: 2px solid #9999ff;
+    text-align: center;
+    margin-bottom: 30px;
+    
+    width: 50%;
+    margin-left: 25%;
+    display: block;
 }
