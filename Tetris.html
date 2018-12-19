@@ -9,24 +9,45 @@ and open the template in the editor.
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="style.css">
+
         <title> TETRIS </title>
         <!-----Aquesta funcio crida al nostre js --->
 
     </head>
     <body id="all">
-        <h1 style="color: blanchedalmond; border: 1px solid greenyellow;text-align: center;">TETRIS GAME</h1>
+        <audio src="Tetris_theme.ogg"  autoplay loop>EPA</audio>
+        <h1 id="ep">TETRIS GAME</h1>
+        <div id="final"></div>
         <div id="puntua"></div>
+                <div id="game">
+
+	<div class="gameover">
+	<p> GAME </p>
+	<p> OVER </p>
+	</div>
+
+	<div class="continuar"> <p> CONTINUAR? </p> </div>
+
+	<div class="opciones">
+		<div class="si"> <a href="#"> SI </a> </div>
+		<div class="no"> <a href="#"> NO </a> </div>
+	</div>
+
+</div>
+        
         <div id="fle" style="text-align: center;">
 
 
             <div id="tauler"></div>
 
             <div id="columna">
-
+                <div id="nivell"></div>
                 <div id="actual"></div>
                 <div id="seguent"></div>
             </div>
         </div>
+
+        
         <script>
 
             var Principal = {
@@ -68,6 +89,7 @@ and open the template in the editor.
                 peçaSeguent: {},
                 contador: [0, 0, 0, 0, 0, 0, 0],
                 nivell: 0,
+                fin: 0,
                 consultarLinies: function () {
                     for (var i = this.espaiJoc.length - 1; i >= 0; i--) {
                         var contador = 0;
@@ -75,7 +97,7 @@ and open the template in the editor.
                             if (this.espaiJoc[i][c] === 2) {
                                 contador++;
                                 if (contador === 10) {
-                                    this.puntuacio += 90;
+                                    this.puntuacio += 50;
                                     for (var x = i; x > 0; x--) {
 
                                         for (var y = this.espaiJoc[i].length - 1; y >= 0; y--) {
@@ -115,6 +137,7 @@ and open the template in the editor.
                 inicialitzarJoc: function () {
 
 
+                    velocitat = 1000;
 
                     var pa = GeneraPecaAleatoria();
                     this.pecaJoc = new Peça(pa[0], pa[1], 0, 3);
@@ -176,6 +199,11 @@ and open the template in the editor.
                             Principal.pecaJoc.moureAvall();
                             if (!Principal.posicioCorrecte()) {
                                 Principal.pecaJoc.moureAmunt();
+                            } else {
+                                Principal.puntuacio++;
+                                document.getElementById("puntua").innerHTML = "PUNTUACIO: " + Principal.puntuacio;
+
+
                             }
                         } else if (e.code === "ArrowUp") {
                             Principal.pecaJoc.rotarDreta();
@@ -184,6 +212,16 @@ and open the template in the editor.
                             }
                         }
                         Principal.pecaJoc.pintar();
+                        document.getElementById("tauler").innerHTML = Principal.pintarMapa();
+                        if (Principal.puntuacio % 10 === 0) {
+                           
+                                Principal.nivell++;
+                                clearInterval(loop);
+                                Principal.velocitat = Principal.velocitat - (Principal.velocitat * 0.1);
+                                loop = setInterval(joc, Principal.velocitat);
+                                document.getElementById("nivell").innerHTML = "NIVELL: " + Principal.nivell;
+                            
+                        }
 
                     }
 
@@ -213,30 +251,59 @@ and open the template in the editor.
                     return true;
                 },
                 movimentAutomatic: function () {
-                    if (this.puntuacio % 200 === 0) {
 
-                    }
-                    /*
-                     
-                     */document.getElementById("puntua").innerHTML = "PUNTUACIO: " + this.puntuacio;
+
+                    document.getElementById("nivell").innerHTML = "NIVELL: " + this.nivell;
+                    document.getElementById("puntua").innerHTML = "PUNTUACIO: " + this.puntuacio;
                     this.pecaJoc.pintar();
                     this.pecaJoc.moureAvall();
                     this.borrarMapapeca();
                     document.getElementById("actual").innerHTML = "PEÇA ACTUAL: " + this.pecaJoc.pin();
                     document.getElementById("seguent").innerHTML = "PEÇA SEGUENT: " + this.peçaSeguent.pin();
                     if (this.posicioCorrecte()) {
+
                         this.pecaJoc.pintar();
+                        this.fin = 0;
                     } else {
-                        this.pecaJoc.moureAmunt();
-                        this.pecaJoc.pintar();
-                        this.bloquejarPeca();
-                        this.pecaJoc = this.peçaSeguent;
-                        pa = GeneraPecaAleatoria();
-                        this.peçaSeguent = new Peça(pa[0], pa[1], 0, 3);
-                        document.getElementById("actual").innerHTML = "PEÇA ACTUAL: " + this.pecaJoc.pin();
-                        document.getElementById("seguent").innerHTML = "PEÇA SEGUENT: " + this.peçaSeguent.pin();
+
+                        this.fin++;
+                        if (this.fin < 2) {
+                            this.pecaJoc.moureAmunt();
+                            this.pecaJoc.pintar();
+                            this.bloquejarPeca();
+                            this.pecaJoc = this.peçaSeguent;
+                            pa = GeneraPecaAleatoria();
+                            this.peçaSeguent = new Peça(pa[0], pa[1], 0, 3);
+                            document.getElementById("actual").innerHTML = "PEÇA ACTUAL: " + this.pecaJoc.pin();
+                            document.getElementById("seguent").innerHTML = "PEÇA SEGUENT: " + this.peçaSeguent.pin();
+                        } else {
+                            this.pecaJoc.moureAmunt();
+                            this.pecaJoc.pintar();
+                            this.bloquejarPeca();
+                            this.pecaJoc = this.peçaSeguent;
+                            clearInterval(loop);
+                            document.getElementById("final").innerHTML = "<h1>GAME OVER</h1>";
+                            document.getElementById("game").style.display = "block";
+                            document.getElementById("game").style.position = "absolute";
+                            document.getElementById("game").style.marginLeft = "25%";
+                        }
                     }
                     this.consultarLinies();
+                    if (this.puntuacio % 10 === 0 && this.puntuacio != 0) {
+                        if (this.puntuacio % 200 === 0) {
+                            this.nivell++;
+                            clearInterval(loop);
+                            velocitat = velocitat - (velocitat * 0.1);
+                            loop = setInterval(joc, velocitat);
+                            document.getElementById("nivell").innerHTML = "NIVELL: " + this.nivell;
+                        } else {
+                            this.nivell++;
+                            clearInterval(loop);
+                            velocitat = velocitat - (velocitat * 0.1);
+                            loop = setInterval(joc, velocitat);
+                            document.getElementById("nivell").innerHTML = "NIVELL: " + this.nivell;
+                        }
+                    }
                 }
             }
             ;
@@ -304,15 +371,15 @@ and open the template in the editor.
             };
             Peça.prototype.pin = function ()
             {
-                var resultat = "<table>";
+                var resultat = "<table id='pes'>";
                 for (var i = 0; i < this.forma.length; i++)
                 {
                     resultat = resultat + "<tr>"
                     for (var j = 0; j < this.forma[i].length; j++)
                     {
                         resultat = resultat + "<td>";
-                        if (this.forma[i][j] == 1) {
-                            resultat = resultat + "<span style='background-color:" + this.color + ";'>&nbsp;</span>";
+                        if (this.forma[i][j] === 1) {
+                            resultat = resultat + "<span style='background-color:" + this.color + ";'>&nbsp;&nbsp;&nbsp;&nbsp;</span>";
                         } else {
                             resultat = resultat + "";
                         }
@@ -356,9 +423,7 @@ and open the template in the editor.
                 return peces[numeroAleatori];
             }
             ;
-            //per generar peça aleatoria var pa = GeneraPecaAleatoria();
-            // per generar una nova peeça var p = new Peça(pa[0],pa[1],0,0);
-            //document.write(p.pintar());
+
 
             Principal.inicialitzarJoc();
             function joc() {
@@ -367,19 +432,13 @@ and open the template in the editor.
                 Principal.puntuacio += 1;
             }
             ;
-            var loop = setInterval(joc, 600);
+            var loop = setInterval(joc, 1000);
 
 
-            //      p.rotarEsquerra();
-            //   document.getElementById("esquerra").innerHTML = p.pintar();
 
 
         </script>
 
-        <noscript>
-        <p>HOLA</p>
-        <p>La página que estás viendo requiere para su funcionamiento el uso de JavaScript. 
-            Si lo has deshabilitado intencionadamente, por favor vuelve a activarlo.</p>
-        </noscript>
+
     </body>
 </html>
