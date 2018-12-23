@@ -31,7 +31,7 @@ and open the template in the editor.
 #columna {
     flex-direction: column;
     margin-left: 10%;
-    margin-top: 10%;
+    margin-top: 2%;
 }
 #pes{
     margin-left: 25%;
@@ -94,6 +94,15 @@ and open the template in the editor.
     height: auto;
     font-size: 25px;
 }
+#maxima {
+    border: 2px solid #752eff;
+    background-color: black;
+    color: white;
+    width: 200px;
+    height: auto;
+    font-size: 25px;
+}
+
 
 @-webkit-keyframes animacion1 { 0% {background: #D62623;}
                                 50% {background: #EE3430;}

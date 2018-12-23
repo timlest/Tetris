@@ -15,41 +15,43 @@ and open the template in the editor.
 
     </head>
     <body id="all">
+        <!--musica del tetris -->
         <audio src="Tetris_theme.ogg"  autoplay loop>EPA</audio>
         <h1 id="ep">TETRIS GAME</h1>
         <div id="final"></div>
         <div id="puntua"></div>
-                <div id="game">
+        <div id="game">
 
-	<div class="gameover">
-	<p> GAME </p>
-	<p> OVER </p>
-	</div>
+            <div class="gameover">
+                <p> GAME </p>
+                <p> OVER </p>
+            </div>
 
-	<div class="continuar"> <p> CONTINUAR? </p> </div>
+            <div class="continuar"> <p> CONTINUAR? </p> </div>
 
-	<div class="opciones">
-		<div class="si"> <a href="#"> SI </a> </div>
-		<div class="no"> <a href="#"> NO </a> </div>
-	</div>
+            <div class="opciones">
+                <div class="si"> <a href="#" onClick="location.reload(false);" > SI </a> </div>
+                <div class="no"> <a href="proves.html"> NO </a> </div>
+            </div>
 
-</div>
-        
+        </div>
+
         <div id="fle" style="text-align: center;">
 
 
             <div id="tauler"></div>
 
             <div id="columna">
+                <div id="maxima"></div>
                 <div id="nivell"></div>
                 <div id="actual"></div>
                 <div id="seguent"></div>
             </div>
         </div>
 
-        
-        <script>
 
+        <script>
+                // objecte principal del joc 
             var Principal = {
                 espaiJoc: [
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -78,7 +80,7 @@ and open the template in the editor.
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 ],
-
+//atribut de puntuacio maxima puntuacio amb variable local
                 puntuacio: 0,
                 Maxpun: localStorage.getItem("Maxima") == undefined ? 0 : localStorage.getItem("Maxima"),
                 //localStorage.setItem("Maxima", punt);
@@ -112,6 +114,8 @@ and open the template in the editor.
                     }
 
                 },
+                
+                //funcio per borrar la peça que hi ha pintada en el mapa
                 borrarMapapeca: function () {
                     for (var i = this.espaiJoc.length - 1; i >= 0; i--) {
 
@@ -122,8 +126,10 @@ and open the template in the editor.
                         }
                     }
                 },
+                
+                //funcio per bloqurjar la peça del mapa i pintarla de negre
                 bloquejarPeca: function () {
-                    this.puntuacio += 10;
+
                     for (var i = this.espaiJoc.length - 1; i >= 0; i--) {
 
                         for (var c = this.espaiJoc[i].length - 1; c >= 0; c--) {
@@ -133,7 +139,7 @@ and open the template in the editor.
                         }
                     }
                 },
-
+//funcio principal del joc que linicialitza
                 inicialitzarJoc: function () {
 
 
@@ -144,10 +150,12 @@ and open the template in the editor.
                     pa = GeneraPecaAleatoria();
                     this.peçaSeguent = new Peça(pa[0], pa[1], 0, 3);
                     this.teclat();
-
+                    document.getElementById("maxima").innerHTML = "MAXIMA PUNTUACIO: " + this.Maxpun;
 
 
                 },
+                
+                //funcio per pintar el mapa del joc
                 pintarMapa: function () {
                     var fila = "<table id='taul' >";
                     for (var i = 0; i < this.espaiJoc.length; i++) {
@@ -167,6 +175,9 @@ and open the template in the editor.
                     fila += "</table>";
                     return fila;
                 },
+                
+                //lectura de teclat
+                
                 teclat: function () {
 
                     var element = document.getElementById("all");
@@ -214,19 +225,21 @@ and open the template in the editor.
                         Principal.pecaJoc.pintar();
                         document.getElementById("tauler").innerHTML = Principal.pintarMapa();
                         if (Principal.puntuacio % 10 === 0) {
-                           
-                                Principal.nivell++;
-                                clearInterval(loop);
-                                Principal.velocitat = Principal.velocitat - (Principal.velocitat * 0.1);
-                                loop = setInterval(joc, Principal.velocitat);
-                                document.getElementById("nivell").innerHTML = "NIVELL: " + Principal.nivell;
-                            
+
+                            Principal.nivell++;
+                            clearInterval(loop);
+                            Principal.velocitat = Principal.velocitat - (Principal.velocitat * 0.1);
+                            loop = setInterval(joc, Principal.velocitat);
+                            document.getElementById("nivell").innerHTML = "NIVELL: " + Principal.nivell;
+
                         }
 
                     }
 
 
                 },
+                
+               //comprovacio de la posicio correcte 
                 posicioCorrecte: function () {
 
                     for (var i = 0; i < this.pecaJoc.forma.length; i++)
@@ -250,6 +263,8 @@ and open the template in the editor.
                     }
                     return true;
                 },
+                
+                //moviment automatic de la peça, tambe comprova si es game over
                 movimentAutomatic: function () {
 
 
@@ -277,11 +292,15 @@ and open the template in the editor.
                             document.getElementById("actual").innerHTML = "PEÇA ACTUAL: " + this.pecaJoc.pin();
                             document.getElementById("seguent").innerHTML = "PEÇA SEGUENT: " + this.peçaSeguent.pin();
                         } else {
+                            if (this.puntuacio > this.Maxpun) {
+                                localStorage.setItem('Maxima', this.puntuacio);
+                            }
                             this.pecaJoc.moureAmunt();
                             this.pecaJoc.pintar();
                             this.bloquejarPeca();
                             this.pecaJoc = this.peçaSeguent;
                             clearInterval(loop);
+
                             document.getElementById("final").innerHTML = "<h1>GAME OVER</h1>";
                             document.getElementById("game").style.display = "block";
                             document.getElementById("game").style.position = "absolute";
@@ -290,19 +309,14 @@ and open the template in the editor.
                     }
                     this.consultarLinies();
                     if (this.puntuacio % 10 === 0 && this.puntuacio != 0) {
-                        if (this.puntuacio % 200 === 0) {
-                            this.nivell++;
-                            clearInterval(loop);
-                            velocitat = velocitat - (velocitat * 0.1);
-                            loop = setInterval(joc, velocitat);
-                            document.getElementById("nivell").innerHTML = "NIVELL: " + this.nivell;
-                        } else {
-                            this.nivell++;
-                            clearInterval(loop);
-                            velocitat = velocitat - (velocitat * 0.1);
-                            loop = setInterval(joc, velocitat);
-                            document.getElementById("nivell").innerHTML = "NIVELL: " + this.nivell;
-                        }
+
+
+                        this.nivell++;
+                        clearInterval(loop);
+                        velocitat = velocitat - (velocitat * 0.1);
+                        loop = setInterval(joc, velocitat);
+                        document.getElementById("nivell").innerHTML = "NIVELL: " + this.nivell;
+
                     }
                 }
             }
@@ -321,6 +335,8 @@ and open the template in the editor.
 
 
             };
+            
+            //funcions de la peça de mure dreta esquerra, etc
             Peça.prototype.moureEsquerra = function ()
             {
 
@@ -347,6 +363,7 @@ and open the template in the editor.
                 this.x--;
 
             };
+            //pintem l apeça al tauler del joc
             Peça.prototype.pintar = function ()
             {
 
@@ -369,6 +386,8 @@ and open the template in the editor.
 
                 }
             };
+            
+            //pintem la peça a untauler creat per nosaltres
             Peça.prototype.pin = function ()
             {
                 var resultat = "<table id='pes'>";
@@ -424,7 +443,7 @@ and open the template in the editor.
             }
             ;
 
-
+//aqui sinicia tot
             Principal.inicialitzarJoc();
             function joc() {
                 document.getElementById("tauler").innerHTML = Principal.pintarMapa();
